@@ -1,0 +1,58 @@
+{
+  "name": "react-utils",
+  "version": "0.0.1",
+  "description": "just a react utils",
+  "main": "./index.js",
+  "scripts": {
+    "report-coverage": "codecov",
+    "lint": "eslint src",
+    "test": "karma start",
+    "build": "rm -rf build && NODE_ENV=production babel src --out-dir build --ignore *_spec.js && cp package.json build/package.json && cp README.md build/README.md",
+    "pub": "npm run build && npm publish build && cnpm sync react-utils"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjzheng/react-utils.git"
+  },
+  "author": "hjzheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hjzheng/react-utils/issues"
+  },
+  "homepage": "https://github.com/hjzheng/react-utils#readme",
+  "devDependencies": {
+    "babel-cli": "^6.7.7",
+    "babel-core": "^6.7.4",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "babel-plugin-typecheck": "^3.9.0",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "codecov": "^1.0.1",
+    "eslint": "^1.8.0",
+    "eslint-friendly-formatter": "^1.2.2",
+    "eslint-loader": "^1.1.0",
+    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-standard": "^1.3.1",
+    "istanbul-instrumenter-loader": "^1.1.0",
+    "jasmine-ajax": "^3.2.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-jasmine-ajax": "^0.1.13",
+    "karma-webpack": "^1.7.0",
+    "sinon": "^1.17.2",
+    "watchify": "^3.7.0",
+    "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "lodash.defaultsdeep": "^4.6.0"
+  }
+}
