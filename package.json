@@ -1,5 +1,5 @@
 {
-  "name": "react-utils",
+  "name": "react-hehe-utils",
   "version": "0.0.1",
   "description": "just a react utils",
   "main": "./index.js",
@@ -8,18 +8,18 @@
     "lint": "eslint src",
     "test": "karma start",
     "build": "rm -rf build && NODE_ENV=production babel src --out-dir build --ignore *_spec.js && cp package.json build/package.json && cp README.md build/README.md",
-    "pub": "npm run build && npm publish build && cnpm sync react-utils"
+    "pub": "npm run build && npm publish build && cnpm sync react-hehe-utils"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hjzheng/react-utils.git"
+    "url": "git+https://github.com/hjzheng/react-hehe-utils.git"
   },
   "author": "hjzheng",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hjzheng/react-utils/issues"
+    "url": "https://github.com/hjzheng/react-hehe-utils/issues"
   },
-  "homepage": "https://github.com/hjzheng/react-utils#readme",
+  "homepage": "https://github.com/hjzheng/react-hehe-utils#readme",
   "devDependencies": {
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.4",
