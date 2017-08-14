@@ -17,9 +17,15 @@ describe('Resource', () => {
 			},
 			list: {
 				url: '/web/2.0/users',
-				method: 'get'
+				method: 'get',
+				params: {
+					pageSize: 10,
+					pageNumber: 1
+				}
+			},
+			save: {
+				method: 'put'
 			}
-
 		});
 	});
 
@@ -202,15 +208,70 @@ describe('Resource', () => {
 		}, 0);
 	});
 
-	it('customize resource', (done) => {
-		OverrideResource.list()
+	it('customize resource - 1', (done) => {
+		OverrideResource.list({ keywords: 'harry' })
 			.then(() => {
 				done();
 			});
 		setTimeout(function () {
 			request = jasmine.Ajax.requests.mostRecent();
-			expect(request.url).toBe('/web/2.0/users');
+			expect(request.url).toBe('/web/2.0/users?keywords=harry&pageSize=10&pageNumber=1');
 			expect(request.method).toBe('GET');
+			request.respondWith({
+				'status': 200,
+				'statusText': 'HTTP/1.1 200 OK',
+				'contentType': 'text/plain',
+				'responseText': {id: 9527}
+			});
+		}, 0);
+	});
+
+	it('customize resource - 2', (done) => {
+		OverrideResource.list(null, {url: 'no used', params: { keywords: 'harry' }})
+			.then(() => {
+				done();
+			});
+		setTimeout(function () {
+			request = jasmine.Ajax.requests.mostRecent();
+			expect(request.url).toBe('/web/2.0/users?pageSize=10&pageNumber=1&keywords=harry');
+			expect(request.method).toBe('GET');
+			request.respondWith({
+				'status': 200,
+				'statusText': 'HTTP/1.1 200 OK',
+				'contentType': 'text/plain',
+				'responseText': {id: 9527}
+			});
+		}, 0);
+	});
+
+	it('customize resource - 3', (done) => {
+		OverrideResource.save(null, { name: 'harry', age: 28 })
+			.then(() => {
+				done();
+			});
+		setTimeout(function () {
+			request = jasmine.Ajax.requests.mostRecent();
+			expect(request.url).toBe('/web/1.0/users');
+			expect(request.method).toBe('PUT');
+			expect(request.data()).toEqual({ name: 'harry', age: 28 });
+			request.respondWith({
+				'status': 200,
+				'statusText': 'HTTP/1.1 200 OK',
+				'contentType': 'text/plain',
+				'responseText': {id: 9527}
+			});
+		}, 0);
+	});
+	it('customize resource - 4', (done) => {
+		OverrideResource.save(null, { name: 'harry', age: 28 }, {url: 'no used', data: { grade: 90 }})
+			.then(() => {
+				done();
+			});
+		setTimeout(function () {
+			request = jasmine.Ajax.requests.mostRecent();
+			expect(request.url).toBe('/web/1.0/users');
+			expect(request.method).toBe('PUT');
+			expect(request.data()).toEqual({ name: 'harry', age: 28, grade: 90 });
 			request.respondWith({
 				'status': 200,
 				'statusText': 'HTTP/1.1 200 OK',

@@ -25,7 +25,7 @@ export class Resource {
 		this.url = url;
 		const res = {};
 		// 深拷贝
-		const actions = defaultsdeep({}, Resource.defaultActions, configActions);
+		const actions = defaultsdeep({}, configActions, Resource.defaultActions);
 		for (let action in actions) {
 			res[action] = (params, data, config) => {
 				let _action = Object.assign({}, actions[action]);
@@ -35,35 +35,15 @@ export class Resource {
 				} else {
 					config = data;
 				}
-				return axios.request(Object.assign({}, _action, config));
+				// config 中的 url, params 和 data 应该如何处理?
+				// 将 _action 中的 data 去 merge config 中的 data
+				// url 以 action 为主, 也就是会覆盖掉 config 中的 url
+				// params 会追加到 _action.url 后面
+				return axios.request(defaultsdeep({}, _action, config));
 			};
 		}
 		return res;
 	}
-
-	// get(params, config) {
-	// 	return axios.get(mixParams(this.url, params), config);
-	// }
-	//
-	// save(params, data, config) {
-	// 	return axios.post(mixParams(this.url, params), data, config);
-	// }
-	//
-	// query(params, config) {
-	// 	return axios.get(mixParams(this.url, params), config);
-	// }
-	//
-	// remove(params, config) {
-	// 	return axios.delete(mixParams(this.url, params), config);
-	// }
-	//
-	// delete(params, config) {
-	// 	return axios.delete(mixParams(this.url, params), config);
-	// }
-	//
-	// update(params, data, config) {
-	// 	return axios.put(mixParams(this.url, params), data, config)
-	// }
 }
 
 Resource.defaultActions = {
